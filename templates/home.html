@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="{% static "js/jquery-3.3.1.min.js" %}"></script>
+</head>
+<body>
+<br>
+<label>IP </label>
+<br>
+<input type="text" name="comm" id="ip" value="{{ ip }}">
+<br>
+<br>
+<label>Username </label>
+<br>
+<input type="text" name="comm1" id="user" value="{{ usernm }}">
+<br>
+<br>
+<label>Password </label>
+<br>
+<input type="password" name="comm2" id="pass" value="{{ pass }}">
+<br>
+<br>
+<label>Command </label>
+<br>
+<input type="text" name="comm3" id="comm">
+<br>
+<br>
+<textarea rows="30" cols="100" id="out">
+	
+</textarea>
+
+<button onclick="runcmd()" >RUN COMMAND</button>
+<script type="text/javascript">
+	
+	function runcmd() {
+		var ip = $("#ip").val();
+		var user = $("#user").val();
+		var pass = $("#pass").val();
+		var txt = $("#comm").val();
+		console.log("start " + txt)
+	    $.post("/runcmd/", {"ip":ip,"user":user,"pass":pass,"cmd": txt}, function(result){
+	    	console.log(result.output);
+	    	$("#out").text(result.output);
+	    });
+	}
+	$(document).keypress(function(e) {
+	    if(e.which == 13) {
+	        runcmd();
+	    }
+	});
+
+</script>
+
+
+</body>
+</html>
