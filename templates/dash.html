@@ -53,20 +53,12 @@
               </nav>
             </div>
           </div>
-          <p>{{ message }}</p>
           <div id="bg"></div>
-      		<form method="POST" action="">
+          <form method="POST" action="">
           {% csrf_token %}
-      		  <label for="email"></label>
-      		  <input type="text" name="email" id="email" placeholder="email" class="email">
-      		    
-      		  <label for="password"></label>
-      		  <input type="password" name="password" id="password" placeholder="password" class="pass">	
-      		  
-      		  <button type="submit" >Login </button>
-      		    
-      		</form>
-
+            <button type="submit" >Logout </button>
+              
+          </form>
           <div class="mastfoot">
             <div class="inner">
               <p>Property of <a href="http://getbootstrap.com">Revengeance Co.</p>
@@ -86,5 +78,6 @@
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src='{% static "js/bootstrap.min.js" %}'></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>

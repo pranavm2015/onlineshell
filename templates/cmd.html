@@ -43,7 +43,6 @@
 
           <div class="masthead clearfix">
             <div class="inner">
-              <h1 class="masthead-brand" >Deep Dream</h1>
               <nav>
                 <ul class="nav masthead-nav">
                   <li class="active"><a href="#">Home</a></li>
@@ -55,18 +54,18 @@
           </div>
           <p>{{ message }}</p>
           <div id="bg"></div>
-      		<form method="POST" action="">
-          {% csrf_token %}
-      		  <label for="email"></label>
-      		  <input type="text" name="email" id="email" placeholder="email" class="email">
-      		    
-      		  <label for="password"></label>
-      		  <input type="password" name="password" id="password" placeholder="password" class="pass">	
-      		  
-      		  <button type="submit" >Login </button>
-      		    
-      		</form>
-
+          <form>
+      		<br>
+			<br>
+			<input type="text" name="comm" id="ip" placeholder="IP"  style="width: 30%">
+			<input type="text" name="comm1" id="user" value="{{ usernm }}" placeholder="USERNAME" style="width: 30%">
+			<input type="password" name="comm2" id="pass" value="{{ pass }}" placeholder="PASSWORD" style="width: 30%">
+      <br>
+      <br>
+			<input type="text" name="comm3" id="comm" placeholder="COMMAND" style="width: 70%">
+			</form>
+      <button onclick="runcmd()" style="text-align: center;">RUN COMMAND</button>
+      <textarea id="out" readonly ></textarea>
           <div class="mastfoot">
             <div class="inner">
               <p>Property of <a href="http://getbootstrap.com">Revengeance Co.</p>
@@ -79,6 +78,28 @@
 
     </div>
 
+
+    <script type="text/javascript">
+      
+      function runcmd() {
+        var ip = $("#ip").val();
+        var user = $("#user").val();
+        var pass = $("#pass").val();
+        var txt = $("#comm").val();
+        console.log("start " + txt)
+          $.post("/runcmd/", {"ip":ip,"user":user,"pass":pass,"cmd": txt}, function(result){
+            console.log(result.output);
+            $("#out").text(result.output);
+          });
+      }
+      $(document).keypress(function(e) {
+          if(e.which == 13) {
+              runcmd();
+          }
+      });
+
+    </script>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -88,3 +109,64 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
   </body>
 </html>
+
+
+<!-- {% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="{% static "js/jquery.min.js" %}"></script>
+</head>
+<body>
+<br>
+<label>IP </label>
+<br>
+<input type="text" name="comm" id="ip" value="{{ ip }}">
+<br>
+<br>
+<label>Username </label>
+<br>
+<input type="text" name="comm1" id="user" value="{{ usernm }}">
+<br>
+<br>
+<label>Password </label>
+<br>
+<input type="password" name="comm2" id="pass" value="{{ pass }}">
+<br>
+<br>
+<label>Command </label>
+<br>
+<input type="text" name="comm3" id="comm">
+<br>
+<br>
+<textarea rows="30" cols="100" id="out">
+	
+</textarea>
+
+<button onclick="runcmd()" >RUN COMMAND</button>
+<script type="text/javascript">
+	
+	function runcmd() {
+		var ip = $("#ip").val();
+		var user = $("#user").val();
+		var pass = $("#pass").val();
+		var txt = $("#comm").val();
+		console.log("start " + txt)
+	    $.post("/runcmd/", {"ip":ip,"user":user,"pass":pass,"cmd": txt}, function(result){
+	    	console.log(result.output);
+	    	$("#out").text(result.output);
+	    });
+	}
+	$(document).keypress(function(e) {
+	    if(e.which == 13) {
+	        runcmd();
+	    }
+	});
+
+</script>
+
+
+</body>
+</html> -->
