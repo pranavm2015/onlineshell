@@ -19,11 +19,9 @@ def home (request) :
 			if request.session['password'] == save.password :
 				request.session['email'] = save.email
 				request.session['password'] = save.password
-				print(">>>> this ")
 				ip = request.COOKIES.get('ip','')
 				username = request.COOKIES.get('username','')
 				password = request.COOKIES.get('pass','')
-				print("sdf "+password)
 				context={'ip':ip,'user':username,'pass':password}
 				print(1)
 				return render (request, "cmd.html", context)
@@ -34,10 +32,8 @@ def home (request) :
 			return render(request, 'home.html', {})
 
 	if request.method == 'POST':
-		# print(request.POST)
 		form = request.POST
 		if 'email' in form :
-			# print(form['email'])
 			context = { "message":"" }
 			try :
 				save  = user.objects.get(email=form['email'])
@@ -48,18 +44,13 @@ def home (request) :
 			if form['password'] == save.password :
 				request.session['email'] = save.email
 				request.session['password'] = save.password
-				print(">>>cook>>> ")
-
-				print(request.COOKIES)
 				ip = request.COOKIES.get('ip','')
 				username = request.COOKIES.get('username','')
 				password = request.COOKIES.get('pass','')
 				context={'ip':ip,'usernm':username,'pass':password}
-				print(3)
 				print(context)
 				return render (request, "cmd.html", context)
 			context["message"] = "Incorrect  Password"
-			print(4)
 			return render(request, 'home.html', context)
 		else:
 			try:
@@ -76,7 +67,7 @@ def home (request) :
 @csrf_exempt
 def runcmd (request) :
 
-	max_age = 14*24*60*60 # two weeks
+	max_age = 3*24*60*60 # 3 days
 	expires = datetime.datetime.strftime(datetime.datetime.utcnow() + datetime.timedelta(seconds=max_age), "%a, %d-%b-%Y %H:%M:%S GMT")
 	
 	try :
